@@ -1,6 +1,6 @@
 <p align="left"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+<p align="center"><img src="https://pt.wikipedia.org/wiki/PHP#/media/Ficheiro:PHP-logo.svg"></p>
 
 Aqui constam os arquivos criados ao longo do desenvolvimento do curso de um curso de desenvolvimento Web que realizei, onde utilizei:
 -> HTLM
