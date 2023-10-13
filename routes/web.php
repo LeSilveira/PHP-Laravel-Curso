@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Middleware\LogAcessoMiddleware;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,30 +15,53 @@ use Illuminate\Support\Facades\Route;
 
 //                CRIAÇÃO DE ROUTES ATRIBUINDO NOMES À ELAS
 
-Route::get('/', 'PrincipalController@principal')->name("site.index");
+Route::// DETERMINANDO DIRETO NA ROTA QUE O MIDDLEWARE SERÁ UTILIZADO ===>>> middleware(LogAcessoMiddleware::class)
+    get('/', 'PrincipalController@principal')
+    ->name("site.index");
 
-Route::get('/sobre-nos', 'SobreNosController@sobrenos')->name("site.sobre-nos");
+Route::get('/sobre-nos', 'SobreNosController@sobrenos')
+    ->name("site.sobre-nos");
 
-Route::get('/contato', 'ContatoController@contato')->name("site.contato");
-Route::post('/contato', 'ContatoController@salvar')->name("site.contato");
+Route::get('/contato', 'ContatoController@contato')
+    ->name("site.contato")
+    ->middleware('log.acesso');
 
-Route::get('/login', function (){return "Login";})->name("site.login");
+Route::post('/contato', 'ContatoController@salvar')
+    ->name("site.contato");
 
-//                CRIAÇÃO DE GRUPO DE ROUTES COM PREFIXO
-Route::prefix('/app')->group(function(){
+Route::get('/login/{erro?}', 'LoginController@index')
+    ->name("site.login");
 
-    Route::get('/clientes', function (){return "Clientes";})->name("site.clientes");
+Route::post('/login', 'LoginController@autenticar')
+    ->name("site.login");
 
-    Route::get('/fornecedores', 'FornecedorController@index')->name("site.fornecedores");
+//                CRIAÇÃO DE GRUPO DE ROUTES COM PREFIXO / UTILIZAÇÃO DE MIDDLEWARE PARA O GRUPO DE ROTAS COM PASSAGEM DE PARÂMETROS
+Route::middleware('autenticacao: padrao')->prefix('/app')->group(function(){
 
-    Route::get('/produtos', function (){return "Produtos";})->name("site.produtos");
+    Route::get('/home', 'HomeController@index')
+        ->name("app.home");
+
+    Route::get('/sair', 'LoginController@sair')
+        ->name("app.sair");
+
+    Route::get('/cliente', 'ClienteController@index')
+        ->name("app.cliente");
+
+    Route::get('/fornecedor', 'FornecedorController@index')
+        ->name("app.fornecedor");
+
+    Route::get('/produto', 'ProdutoController@index')
+        ->name("app.produto");
+
 });
 
 /*               ROUTES DE TESTE
 PASSANDO PARÂMETROS NA PRIMEIRA PARA O CONTROLLER */
-Route::get('/teste/{p1}/{p2}', 'TesteController@teste')->name('teste');
+Route::get('/teste/{p1}/{p2}', 'TesteController@teste')
+    ->name('teste');
 
-Route::get('/welcome', 'WelcomeController@controller')->name('welcome');
+Route::get('/welcome', 'WelcomeController@controller')
+    ->name('welcome');
 
 
 //                CRIAÇÃO DE ROUTE PARA DEMONSTRAR UTILIZAÇÃO DO REDIRECT()

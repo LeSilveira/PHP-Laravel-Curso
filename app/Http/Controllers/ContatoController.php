@@ -64,6 +64,7 @@ class ContatoController extends Controller
             'email' => $request['email'], 
             'motivo_contatos_id' => $request['motivo_contatos_id'], 
             'mensagem' => $request['mensagem']]);
+            
             return redirect()->route('site.index');
 
     }
