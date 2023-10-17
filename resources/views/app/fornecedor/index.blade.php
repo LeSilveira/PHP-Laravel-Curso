@@ -1,82 +1,38 @@
-<h3>Fornecedores</h3>
+@extends('app.layouts.basico')
+
+@section('titulo', 'Fornecedor')
+
+@section('conteudo')
+
+    <div class="conteudo-pagina">
 
 
-@php
-/*                  USO DE PHP PURO
-if(){
+        <div class="titulo-pagina-2">
 
-}else if(){
+            <p> Fornecedor </p>
+            
+        </div>
 
-}else
-*/
-@endphp
+        <div class = "menu">
+            <ul>
+                <li> <a href="{{route('app.fornecedor.adicionar')}}">Novo</a></li> 
+                <li> <a href="{{route('app.fornecedor.index')}}">Consulta</a></li>
+        </div>
 
-{{--                USO DO IF EM BLADE
-@if(count($fornecedores) > 0 && count($fornecedores) < 10)
-    <h3> Existem algumas pessoas cadastradas </h3>
-@endif
---}}
+        <div class = "informacao-pagina">
+        <div style="width:30%; margin-left:auto; margin-right: auto;">
+            <form method="post" action="{{route('app.fornecedor.listar')}}">
+                @csrf
+                <input type="text" name="nome" placeholder="Nome" class="borda-preta">
+                <input type="text" name="site" placeholder="Site" class="borda-preta">
+                <input type="text" name="uf" placeholder="UF" class="borda-preta">
+                <input type="text" name="email" placeholder="E-mail" class="borda-preta">
+                <button type="submit" class="borda-preta">Pesquisar</button>
+            </form>
 
-{{--                USO DO UNLESS EM BLADE
-{{$fornecedores[1]['nome'].": ".$fornecedores[1]['idade']}}
-@unless($fornecedores[0]['idade'] > 30)
-    Esta pessoa é mais nova que 30 anos
-@endunless
---}}
+        </div>
 
-{{--RO ESTÁ DECLARADO, JUNTO COM O EMPTY PARA VERIFICAR SE HÁ DADOS NA MATRIZ
-@isset($fornecedores)
-    @unless(@empty($fornecedores)==true)
-    Fornecedor: {{$fornecedores[0]["nome"]}}
-    <br>
-    Idade: {{$fornecedores[0]["idade"]}}
-    <br>
-    @endunless    
-@endisset
---}}
+    </div>
 
-{{--                USO DO SWITCH EM BLADE
-@switch($fornecedores[3]['nome'])
-    @case("Leandro Silveira")
-        Opa
-        @break
 
-    @case("Jorge Machado")
-        jorgin
-        @break
-
-    @default
-        Não sou eu ou o Jorgin
-@endswitch
---}}
-
-{{--                USO DO FOR EM BLADE
-@for ($i = 0; count($fornecedores)>$i; $i++)
-    <h4>Nome: {{$fornecedores[$i]["nome"]}} 
-    <br>
-        Idade: {{$fornecedores[$i]["idade"]}}  </h4>
-    <hr>
-@endfor
---}}
-
-{{--                USO DO FOREACH EM BLADE
-@foreach ($fornecedores as $fornecedor)
-    {{$loop}} //VARIÁVEL CRIADA NO FOREACH E FORELSE PARA CONTROLE DA REPETIÇÃO
-    <h4>Nome: {{$fornecedor["nome"]}} 
-    <br>
-        Idade: {{$fornecedor["idade"]}}  </h4>
-    <hr>
-@endforeach
---}}
-
-{{--                USO DO FOREACH EM BLADE
-@forelse ($fornecedores as $fornecedor)
-    {{$loop}} //VARIÁVEL CRIADA NO FORELSE E FOREACH PARA CONTROLE DA REPETIÇÃO
-    h4>Nome: {{$fornecedor["nome"]}} 
-    <br>
-        Idade: {{$fornecedor["idade"]}}  </h4>
-    <hr>
-@empty
-    Não há fornecedores cadastrados!
-@endforelse
---}}
+@endsection
